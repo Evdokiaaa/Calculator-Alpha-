@@ -1,22 +1,18 @@
-let a = ''; // first number
-
-let b = ''; //second number
-
-let sign = ''; // знак операции
-
-let finish = false;
-
-let counterForC = 1;
-
-let counterForEquals=0;
-
-
 const numbers = ['1','2','3','4','5','6','7','8','9','0','.'];
 const action = ['-','+','X','/','%','C'];
 
+let a = ''; // first number
+let b = ''; //second number
+let sign = ''; // знак операции
+let finish = false;
+let counterForC = 1;
+let counterForEquals=0;
+
+
+
 //экран калькулятор
 
-const screen = document.querySelector('.start-number');
+const screen = document.querySelector('.start__number');
 
 
 //кнопокчки и кнопки очистки
@@ -25,13 +21,12 @@ const btns = document.querySelector('.btns')
 const clearOneNumber = document.querySelector('.ClearByOne');
 
 
-//наша функция очистки (готова(можно в конец поместить))
+//наша функция очистки (готова(можно в конец поместить)) //Looks good
 btnClear.addEventListener('click',() =>{
     a = ''; 
     b = '';
     sign = ''; 
     finish = false;
-
     screen.textContent = 0;
 
 });
@@ -61,25 +56,25 @@ clearOneNumber.addEventListener('click',()=>{
 
 btns.addEventListener('click',(event)=>{
     if (!event.target.classList.contains('calc_button')) return; // если кликну в промежуток, то выходим
-    if (event.target.classList.contains('clear')) return;
-    const key = event.target.textContent; // получаем кнопку
+    if (event.target.classList.contains('clear')) return; //Если кликаем на clear, то выходим из обработчика и запускаем другую ф
+    const key = event.target.textContent; // получаем текст кнопки ( 1,2.. x, % ..)
 
-    if (numbers.includes(key)){
-        if(b==='' && sign ===''){ 
-            a+=key;
+    if (numbers.includes(key)){ //Если есть циферки, то
+        if(b==='' && sign ===''){ //Все очищаем(потом переделать)
+            a+=key; //Добавляем первую нашу букву
             screen.textContent = a;
         }
         else if(a!=='' && sign !== '' && finish){
-            b=key;
+            b=key; //Добавляем вторую циферку , если ввели знак и а
             finish = false;
             screen.textContent=b;
 
         }
         else{
-            b+=key;
+            b+=key; //Добавляем б, потом фиксануть
             screen.textContent = b;
         }
-        return
+        return //выходим если не цифра
     }
 
     if (action.includes(key)){ // если нажата * / ..
@@ -108,16 +103,13 @@ btns.addEventListener('click',(event)=>{
             case '%':
                 a = a%b;
                 break;
-        
-
         };
-
+        //Короче переделываем данную функцию, мне не нравится многое
         if(a===''){ 
             screen.textContent=0;
         } else if (a!=='' && b!=='' && sign!==''){
             finish = true; 
-            screen.textContent = a; 
-            
+            screen.textContent = a;
             return
 
         }
